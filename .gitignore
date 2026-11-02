@@ -1,0 +1,20 @@
+.gradle/
+.idea/
+.kotlin/
+build/
+local.properties
+*.iml
+captures/
+.externalNativeBuild/
+.cxx/
+*.keystore
+node_modules/
+mock-server/data/
+mock-server/*.pem
+
+# Release signing, build output and phone reports
+reports/
+*.p12
+*.jks
+signing.properties
+dist/

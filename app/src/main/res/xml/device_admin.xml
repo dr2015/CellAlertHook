@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- No policies: being an active admin is what protects the app. It cannot lock or wipe the phone. -->
+<device-admin>
+    <uses-policies />
+</device-admin>

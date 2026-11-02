@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Minimal proof of concept: an ordinary third-party APK with no shared signature,
+  no privileged install and no root. It asks one question: what can it actually
+  observe from the Cell Broadcast stack?
+-->
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="app.cellalerthook.viewer"
+    android:versionCode="1"
+    android:versionName="1.0">
+
+    <uses-sdk android:minSdkVersion="30" android:targetSdkVersion="34" />
+
+    <!-- @hide in the SDK, but a dangerous runtime permission on the device. -->
+    <uses-permission android:name="android.permission.READ_CELL_BROADCASTS" />
+
+    <!-- Requested deliberately to prove it is NOT granted to a third-party app. -->
+    <uses-permission android:name="android.permission.RECEIVE_EMERGENCY_BROADCAST" />
+
+    <queries>
+        <provider android:authorities="cellbroadcasts" />
+        <intent>
+            <action android:name="android.provider.action.SMS_EMERGENCY_CB_RECEIVED" />
+        </intent>
+    </queries>
+
+    <application android:label="CB PoC" android:allowBackup="false">
+        <activity android:name=".PocActivity" android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <!-- Manifest-declared listener for the protected emergency broadcast. -->
+        <receiver android:name=".PocReceiver" android:exported="true">
+            <intent-filter>
+                <action android:name="android.provider.action.SMS_EMERGENCY_CB_RECEIVED" />
+                <action android:name="android.provider.Telephony.SMS_CB_RECEIVED" />
+            </intent-filter>
+        </receiver>
+    </application>
+</manifest>

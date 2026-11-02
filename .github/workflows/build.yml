@@ -1,0 +1,24 @@
+name: Build and test
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 17
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - uses: gradle/actions/setup-gradle@v4
+      - name: Unit tests, lint and debug build
+        run: ./gradlew :app:testDebugUnitTest :app:lintDebug :app:assembleDebug --console=plain
+      - name: Node tests
+        run: node --test tools/test/*.test.js mock-server/test/*.test.js

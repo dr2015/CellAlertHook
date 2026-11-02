@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    packageNames is narrowed at connect time to the configured allowlist plus the system
+    receiver discovered on this device. This static list covers the moment before that.
+    isAccessibilityTool stays false: this app is not a disability tool, and the real alert
+    dialog was measured to be readable without claiming to be one.
+-->
+<accessibility-service xmlns:android="http://schemas.android.com/apk/res/android"
+    android:accessibilityEventTypes="typeWindowStateChanged|typeWindowContentChanged|typeWindowsChanged"
+    android:accessibilityFeedbackType="feedbackGeneric"
+    android:accessibilityFlags="flagDefault|flagReportViewIds|flagRetrieveInteractiveWindows|flagIncludeNotImportantViews"
+    android:canRetrieveWindowContent="true"
+    android:description="@string/accessibility_description"
+    android:isAccessibilityTool="false"
+    android:notificationTimeout="100"
+    android:packageNames="com.google.android.cellbroadcastreceiver,com.android.cellbroadcastreceiver,app.cellalerthook"
+    android:summary="@string/accessibility_summary" />
